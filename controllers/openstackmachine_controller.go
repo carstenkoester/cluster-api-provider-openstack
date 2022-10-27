@@ -240,7 +240,7 @@ func (r *OpenStackMachineReconciler) reconcileDelete(ctx context.Context, scope 
 		return ctrl.Result{}, err
 	}
 
-	if openStackCluster.Spec.APIServerLoadBalancer.Enabled {
+	if openStackCluster.Spec.APIServerLoadBalancer.Enabled && util.IsControlPlaneMachine(machine) {
 		loadBalancerService, err := loadbalancer.NewService(scope)
 		if err != nil {
 			return ctrl.Result{}, err
